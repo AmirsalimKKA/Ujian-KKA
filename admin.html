@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Guru - Analisis Butir Soal & TP</title>
+  <title>Dashboard Guru - Manajemen Ujian & Analisis</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
@@ -40,10 +40,13 @@
         </div>
         <div>
           <h1 class="font-bold text-lg leading-tight">Dashboard Guru & Matriks Analisis</h1>
-          <p class="text-xs text-cyan-200">Multi-Kelas • PG & 10 Isian Singkat • Export Excel Analisis</p>
+          <p class="text-xs text-cyan-200">Multi-Kelas • PG & Isian Singkat • Export Excel Analisis</p>
         </div>
       </div>
       <div id="adminNavControls" class="hidden flex items-center gap-2">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-semibold">
+          <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Halaman Siswa
+        </a>
         <button onclick="muatDataDashboard()" class="px-3 py-1.5 rounded-lg bg-[#0B7C86] hover:bg-cyan-600 text-xs font-semibold">
           <i class="fa-solid fa-rotate mr-1"></i> Muat Ulang
         </button>
@@ -91,10 +94,6 @@
       <button onclick="bukaTab('tabKoreksiIsian')" id="btn-tabKoreksiIsian"
         class="tab-btn px-4 py-2 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-100">
         <i class="fa-solid fa-pen-to-square mr-1.5"></i>Koreksi Isian (0–5)
-      </button>
-      <button onclick="bukaTab('tabAnalisisTP')" id="btn-tabAnalisisTP"
-        class="tab-btn px-4 py-2 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-100">
-        <i class="fa-solid fa-chart-pie mr-1.5"></i>Ketuntasan TP
       </button>
       <button onclick="bukaTab('tabUploadWord')" id="btn-tabUploadWord"
         class="tab-btn px-4 py-2 rounded-lg text-sm font-bold text-slate-600 hover:bg-slate-100">
@@ -176,27 +175,16 @@
       </div>
     </section>
 
-    <!-- TAB 2: KOREKSI CEPAT 10 SOAL ISIAN (SKOR 0-5) -->
+    <!-- TAB 2: KOREKSI CEPAT SOAL ISIAN (SKOR 0-5) -->
     <section id="tabKoreksiIsian" class="tab-panel hidden space-y-4">
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h3 class="font-bold text-base text-[#022050]">Koreksi & Pemberian Skor Rubrik Isian Singkat (0–5)</h3>
-          <p class="text-xs text-slate-500">Jawaban yang sama persis dengan kunci sudah otomatis bernilai 5. Klik angka 0–5 untuk menyesuaikan skor langkah/parsial.</p>
-        </div>
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+        <h3 class="font-bold text-base text-[#022050]">Koreksi & Pemberian Skor Rubrik Isian Singkat (0–5)</h3>
+        <p class="text-xs text-slate-500">Jawaban yang sama persis dengan kunci sudah otomatis bernilai 5. Klik angka 0–5 untuk menyesuaikan skor langkah/parsial.</p>
       </div>
       <div id="containerKoreksiIsian" class="space-y-4"></div>
     </section>
 
-    <!-- TAB 3: KETUNTASAN TP -->
-    <section id="tabAnalisisTP" class="tab-panel hidden space-y-4">
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
-        <h3 class="font-bold text-base text-[#022050] mb-1">Analisis Ketuntasan Tujuan Pembelajaran (TP)</h3>
-        <p class="text-xs text-slate-500 mb-4">Menggabungkan capaian poin dari soal Pilihan Ganda dan Isian Singkat pada setiap kode TP.</p>
-        <div id="containerAnalisisTP" class="space-y-4"></div>
-      </div>
-    </section>
-
-    <!-- TAB 4: INPUT SOAL VIA WORD (.DOCX) -->
+    <!-- TAB 3: INPUT SOAL VIA WORD (.DOCX) -->
     <section id="tabUploadWord" class="tab-panel hidden space-y-5">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 space-y-4 h-fit">
@@ -222,28 +210,22 @@
 
           <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs space-y-2">
             <div class="flex items-center justify-between">
-              <span class="font-bold text-slate-700">Format Tag Word (PG & Isian):</span>
+              <span class="font-bold text-slate-700">Format Soal & Jawaban di Word:</span>
               <button type="button" onclick="salinFormatWord()" class="text-[#0B7C86] font-bold hover:underline">
                 <i class="fa-regular fa-copy"></i> Salin
               </button>
             </div>
-            <pre id="contohFormatText" class="bg-white p-2.5 rounded border text-[11px] overflow-x-auto leading-relaxed">[TIPE] PG
-[NO] 1
-[TP] TP 6.1 | Memahami konsep rasio
-[SOAL] Perbandingan 4 apel dan 6 jeruk adalah...
+            <pre id="contohFormatText" class="bg-white p-2.5 rounded border text-[11px] overflow-x-auto leading-relaxed">[SOAL] Perbandingan 4 apel dan 6 jeruk adalah...
 [A] 2 : 3
 [B] 3 : 2
 [C] 4 : 10
 [D] 6 : 10
 [KUNCI] A
 ===
-[TIPE] ISIAN
-[NO] 1a
-[TP] TP 6.2 | Perbandingan senilai
-[SOAL] Harga 3 buku Rp12.000. Harga 5 buku adalah...
+[ISIAN] Harga 3 buku Rp12.000. Harga 5 buku adalah...
 [KUNCI] 20000
-[SKOR_MAKS] 5
 ===</pre>
+            <p class="text-[11px] text-slate-500">Nomor urut soal dibuat otomatis. Gambar & tabel di bawah pertanyaan langsung terbaca.</p>
           </div>
         </div>
 
@@ -256,7 +238,7 @@
       </div>
     </section>
 
-    <!-- TAB 5: PENGATURAN KELAS & SESI -->
+    <!-- TAB 4: PENGATURAN KELAS & SESI -->
     <section id="tabPengaturan" class="tab-panel hidden">
       <div class="bg-white max-w-2xl rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
         <h3 class="font-bold text-base text-[#022050]">Konfigurasi Kelas, Token & Bobot Penilaian</h3>
@@ -348,7 +330,7 @@
         document.getElementById("adminNavControls").classList.remove("hidden");
         muatDataDashboard();
       } catch (err) {
-        alert("Gagal terhubung ke Apps Script. Pastikan deployment sudah di-update dengan kode terbaru.");
+        alert("Gagal terhubung ke Apps Script.");
         btn.disabled = false;
         btn.textContent = "Masuk ke Dashboard";
       }
@@ -459,7 +441,6 @@
           nilaiAkhir: Number(r[6]) || 0,
           pelanggaran: Number(r[7]) || 0,
           logCurang: r[8] || "[]",
-          analisisTP: r[9] || "{}",
           jawaban: r[10] || "{}",
           skorButir
         };
@@ -475,7 +456,6 @@
         return {
           id,
           label: String(s[3]),
-          kodeTP: String(s[4]),
           benar,
           salah,
           persen,
@@ -501,7 +481,6 @@
         return {
           id,
           label: String(s[3]),
-          kodeTP: String(s[4]),
           skorMaks,
           benar,
           salah,
@@ -554,8 +533,8 @@
           <th rowspan="2" class="border border-slate-400 px-2 py-2">Log</th>
         </tr>
         <tr class="bg-[#022050] text-white text-center font-bold">
-          ${m.soalPG.map((s, i) => `<th class="border border-slate-400 px-2 py-1" title="${escapeHtml(s[4])}">${escapeHtml(s[3] || (i + 1))}</th>`).join("")}
-          ${m.soalIsian.map((s, i) => `<th class="border border-slate-400 px-2 py-1" title="${escapeHtml(s[4])}">${escapeHtml(s[3] || (i + 1))}</th>`).join("")}
+          ${m.soalPG.map((s, i) => `<th class="border border-slate-400 px-2 py-1">${escapeHtml(s[3] || (i + 1))}</th>`).join("")}
+          ${m.soalIsian.map((s, i) => `<th class="border border-slate-400 px-2 py-1">${escapeHtml(s[3] || (i + 1))}</th>`).join("")}
         </tr>
       `;
 
@@ -612,9 +591,7 @@
       }
 
       tbody.innerHTML = bodyHTML;
-
       renderPanelKoreksiIsian(m);
-      renderPanelKetuntasanTP(m, kktp);
     }
 
     function renderPanelKoreksiIsian(m) {
@@ -650,7 +627,7 @@
           return `
             <div class="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs">
               <div class="space-y-0.5">
-                <span class="font-bold text-[#022050]">No. ${escapeHtml(label)}</span>
+                <span class="font-bold text-[#022050]">Isian No. ${escapeHtml(label)}</span>
                 <span class="text-slate-500 ml-2">Kunci: <b class="text-emerald-700">${escapeHtml(kunci)}</b></span>
                 <p class="text-sm font-semibold text-slate-800">Jawaban Siswa: <span class="text-blue-700">${escapeHtml(jwbSiswa)}</span></p>
               </div>
@@ -712,53 +689,6 @@
       if (res.status === "success") muatDataDashboard();
     }
 
-    function renderPanelKetuntasanTP(m, kktp) {
-      const tpMap = {};
-      m.siswaRows.forEach(sw => {
-        let tpObj = {};
-        try { tpObj = JSON.parse(sw.analisisTP || "{}"); } catch (e) {}
-        for (const [kode, info] of Object.entries(tpObj)) {
-          if (!tpMap[kode]) {
-            tpMap[kode] = { deskripsi: info.deskripsi || "-", sumPersen: 0, count: 0, remedial: [] };
-          }
-          const pct = info.maks > 0 ? (info.poin / info.maks) * 100 : 0;
-          tpMap[kode].sumPersen += pct;
-          tpMap[kode].count += 1;
-          if (pct < kktp) tpMap[kode].remedial.push(`${sw.nama} (${Math.round(pct)}%)`);
-        }
-      });
-
-      const container = document.getElementById("containerAnalisisTP");
-      if (Object.keys(tpMap).length === 0) {
-        container.innerHTML = '<p class="text-sm text-slate-400 italic">Belum ada data analisis TP.</p>';
-        return;
-      }
-
-      container.innerHTML = Object.entries(tpMap).map(([kode, st]) => {
-        const rata = Math.round(st.sumPersen / st.count);
-        const tuntas = rata >= kktp;
-        return `
-          <div class="border border-slate-200 rounded-xl p-4 space-y-2">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <span class="px-2.5 py-0.5 rounded bg-[#022050] text-white text-xs font-bold mr-2">${escapeHtml(kode)}</span>
-                <span class="font-bold text-sm text-slate-800">${escapeHtml(st.deskripsi)}</span>
-              </div>
-              <span class="text-sm font-bold ${tuntas ? "text-emerald-600" : "text-red-600"}">
-                Capaian: ${rata}% (${tuntas ? "Tuntas" : "Perlu Penguatan"})
-              </span>
-            </div>
-            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-              <div class="${tuntas ? "bg-emerald-500" : "bg-amber-500"} h-full" style="width: ${rata}%"></div>
-            </div>
-            <p class="text-xs text-slate-600">
-              <b>Siswa perlu pendampingan TP ini:</b> ${st.remedial.length > 0 ? escapeHtml(st.remedial.join(", ")) : "Tidak ada (semua tuntas)"}
-            </p>
-          </div>
-        `;
-      }).join("");
-    }
-
     function lihatLogByIndex(idx) {
       if (!currentMatriksCache) return;
       const sw = currentMatriksCache.siswaRows[idx];
@@ -818,7 +748,7 @@
         ws.getCell(1, colStartIsian).value = "BUTIR SOAL ISIAN (skor 0-5)";
         ws.mergeCells(1, colStartIsian, 1, colEndIsian);
         m.soalIsian.forEach((s, i) => {
-          ws.getCell(2, colStartIsian + i).value = s[3] || (i + 1);
+          ws.getCell(2, colStartIsian + i).value = Number(s[3]) || s[3] || (i + 1);
         });
       }
 
@@ -922,10 +852,10 @@
       link.click();
     }
 
-    // PARSER WORD (.DOCX) - MENDUKUNG TAG YANG TERCETAK TEBAL / FORMATTED
+    // PARSER WORD (.DOCX) - HANYA SOAL DAN JAWABAN (TANPA TP)
     function salinFormatWord() {
       navigator.clipboard.writeText(document.getElementById("contohFormatText").textContent);
-      alert("Contoh format penanda Word berhasil disalin!");
+      alert("Contoh format soal & jawaban Word berhasil disalin!");
     }
 
     document.getElementById("inputDocx").addEventListener("change", async (e) => {
@@ -970,7 +900,6 @@
     }
 
     function hapusTagPrefixHTML(html, tagName) {
-      // Hapus tag [SOAL], [A], dll. baik polos maupun terbungkus <strong>/<b>/<span>
       const regexWrapped = new RegExp(`^(?:<[^>]+>\\s*)*\\[${tagName}\\]\\s*(?:<\\/[^>]+>\\s*)*`, "i");
       return html.replace(regexWrapped, "").trim();
     }
@@ -984,10 +913,10 @@
 
       function buatObjekSoalKosong() {
         return {
-          tipe: "PG",
+          tipe: "",
           noLabel: "",
-          kodeTP: "TP_UMUM",
-          deskripsiTP: "Capaian Umum",
+          kodeTP: "UMUM",
+          deskripsiTP: "Evaluasi Umum",
           pertanyaanHTML: "",
           opsiA: "", opsiB: "", opsiC: "", opsiD: "",
           kunci: "",
@@ -997,7 +926,10 @@
 
       function simpanJikaValid() {
         if (cur.pertanyaanHTML.trim()) {
-          if (!cur.noLabel) cur.noLabel = String(list.length + 1);
+          if (!cur.tipe) {
+            const adaOpsi = cur.opsiA.trim() || cur.opsiB.trim() || cur.opsiC.trim() || cur.opsiD.trim();
+            cur.tipe = adaOpsi ? "PG" : "ISIAN";
+          }
           list.push(cur);
         }
         cur = buatObjekSoalKosong();
@@ -1018,12 +950,13 @@
           cur.tipe = text.replace(/^\[TIPE\]\s*/i, "").trim().toUpperCase();
         } else if (/^\[NO\]/i.test(text)) {
           cur.noLabel = text.replace(/^\[NO\]\s*/i, "").trim();
-        } else if (/^\[TP\]/i.test(text)) {
-          const rawTP = text.replace(/^\[TP\]\s*/i, "");
-          const parts = rawTP.split("|");
-          cur.kodeTP = (parts[0] || "TP_UMUM").trim();
-          cur.deskripsiTP = (parts[1] || cur.kodeTP).trim();
+        } else if (/^\[ISIAN\]/i.test(text)) {
+          if (cur.pertanyaanHTML.trim()) simpanJikaValid();
+          cur.tipe = "ISIAN";
+          cur.pertanyaanHTML = hapusTagPrefixHTML(inner, "ISIAN");
+          mode = "SOAL";
         } else if (/^\[SOAL\]/i.test(text)) {
+          if (cur.pertanyaanHTML.trim()) simpanJikaValid();
           cur.pertanyaanHTML = hapusTagPrefixHTML(inner, "SOAL");
           mode = "SOAL";
         } else if (/^\[A\]/i.test(text)) {
@@ -1055,6 +988,19 @@
       });
 
       simpanJikaValid();
+
+      let countPG = 0;
+      let countIsian = 0;
+      list.forEach(item => {
+        if (item.tipe === "ISIAN") {
+          countIsian++;
+          if (!item.noLabel) item.noLabel = String(countIsian);
+        } else {
+          countPG++;
+          if (!item.noLabel) item.noLabel = String(countPG);
+        }
+      });
+
       return list;
     }
 
@@ -1069,11 +1015,11 @@
         <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/50 space-y-2">
           <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
             <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded font-bold text-white ${s.tipe === "ISIAN" ? "bg-[#0B7C86]" : "bg-[#022050]"}">${s.tipe}</span>
-              <span class="font-bold text-slate-800">No. ${escapeHtml(s.noLabel)} • ${escapeHtml(s.kodeTP)}</span>
+              <span class="px-2 py-0.5 rounded font-bold text-white ${s.tipe === "ISIAN" ? "bg-[#0B7C86]" : "bg-[#022050]"}">${s.tipe === "ISIAN" ? "ISIAN SINGKAT" : "PILIHAN GANDA"}</span>
+              <span class="font-bold text-slate-800">No. ${escapeHtml(s.noLabel)}</span>
             </div>
             <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">
-              Kunci: ${escapeHtml(s.kunci || "(Koreksi Manual)")} ${s.tipe === "ISIAN" ? `• Maks ${s.skorMaks}` : ""}
+              Kunci: ${escapeHtml(s.kunci || "(Koreksi Manual)")}
             </span>
           </div>
           <div class="preview-html text-sm text-slate-800 bg-white p-3 rounded-lg border">${s.pertanyaanHTML}</div>
